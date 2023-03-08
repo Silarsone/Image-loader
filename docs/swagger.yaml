@@ -1,0 +1,108 @@
+basePath: /
+definitions:
+  response.Response:
+    properties:
+      data: {}
+      error:
+        type: boolean
+    type: object
+  server.User:
+    properties:
+      description:
+        type: string
+      id:
+        type: integer
+      imageUrls:
+        items:
+          type: string
+        type: array
+      login:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+    type: object
+host: localhost:8000
+info:
+  contact: {}
+  description: Это API учебного проекта
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: Example Project API
+  version: "1.0"
+paths:
+  /user/add:
+    post:
+      consumes:
+      - application/json
+      description: add a new user
+      parameters:
+      - description: authorize user
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/server.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/response.Response'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: AddUser
+      tags:
+      - user
+  /user/auth:
+    get:
+      consumes:
+      - application/json
+      description: Issue JWT
+      parameters:
+      - description: authorize user
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/server.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/response.Response'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: Authorize
+      tags:
+      - auth
+swagger: "2.0"
